@@ -1,0 +1,19 @@
+h1{
+    text-align: center;
+    color: lightblue;
+    text-decoration: underline;
+}
+
+.drumInfo{
+    font-size: 12px;
+}
+
+#drumTypes{
+    font-size: 50px;
+    background-image: url("drumsbackgraund.jpg");
+}
+
+.menu{
+    display: flex;
+    gap: 18px;
+}

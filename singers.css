@@ -1,0 +1,63 @@
+h1{
+    text-align: center;
+    color: crimson;
+}
+
+#p1{
+    text-align: justify;
+}
+
+.menu{
+    display: flex;
+    gap: 18px;
+}
+
+.singer-card{
+    width: 18%;
+    float: left;
+}
+
+.male-title{
+    clear: both;
+}
+
+.singers-grid{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+#eden{
+    grid-column: span 2;
+}
+
+footer {
+    clear: both;
+    text-align: center;
+    background-color: lightgray;
+    padding: 15px;
+}
+
+@media(max-width: 1200px){
+    .singers-grid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    #eden{
+        grid-column: auto;
+    }
+}
+
+@media(max-width: 900px){
+    .singers-grid{
+        grid-template-columns: 1fr;
+    }
+    #eden{
+        grid-column: auto;
+    }
+    .singer-card{
+        float: none;
+        width: 100%;
+    }
+    img{
+        display: none;
+    }
+}

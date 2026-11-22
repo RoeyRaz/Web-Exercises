@@ -1,0 +1,21 @@
+h1{
+text-align: center;
+color:blue;
+}
+
+#description {
+    background-color: yellow;
+    text-align: center;
+}
+
+table {
+    border:2px solid blue;
+    text-align: center;
+    font-size: 13px;
+    color: orange;
+}
+
+.menu{
+    display: flex;
+    gap: 18px;
+}
