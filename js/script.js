@@ -1,4 +1,6 @@
 
+"use strict";
+
 function connectVote(buttonId, scoreId) {
     const button = document.getElementById(buttonId);
     const score = document.getElementById(scoreId);
@@ -16,11 +18,16 @@ function connectVote(buttonId, scoreId) {
     });
 }
 
-// Female singers
+// Original female singers
 connectVote("vote-odeya", "votes-odeya");
 connectVote("vote-jasmin", "votes-jasmin");
 connectVote("vote-noa", "votes-noa");
 connectVote("vote-edenb", "votes-edenb");
+
+// New female singers
+connectVote("vote-charli", "votes-charli");
+connectVote("vote-grimes", "votes-grimes");
+connectVote("vote-fka-twigs", "votes-fka-twigs");
 
 // Male singers
 connectVote("vote-omer", "votes-omer");
