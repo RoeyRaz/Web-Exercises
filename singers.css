@@ -61,3 +61,7 @@ footer {
         display: none;
     }
 }
+.vote-button {
+    display: block;
+    margin-top: 10px;
+}
