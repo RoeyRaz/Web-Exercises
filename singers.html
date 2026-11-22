@@ -1,344 +1,420 @@
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Singers of the Year</title>
     <link rel="stylesheet" href="singers.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+
+        /* Keep the original dark look and pink headings. */
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            background: #181a20;
+            color: #f4f6fb;
+            font: 16px/1.6 Arial, Helvetica, sans-serif;
+        }
+        header { padding: 22px 16px 6px; }
+        header h1 { margin: 0; text-align: center; color: #e73358; }
+        main { width: min(1280px, calc(100% - 32px)); margin: 24px auto 48px; }
+
+        /* Navigation. The class is on <nav>, the links are inside <ul>. */
+        nav.menu { display: block; }
+        nav.menu ul {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            padding: 0;
+            margin: 12px 16px 24px;
+            list-style: none;
+        }
+        nav.menu li { list-style: none; }
+        nav.menu a {
+            display: block;
+            padding: 10px 16px;
+            border-radius: 8px;
+            background: #292f3a;
+            color: #ffffff;
+            text-decoration: none;
+        }
+        nav.menu a:hover,
+        nav.menu a:focus-visible,
+        nav.menu a[aria-current="page"] { background: #c9274c; }
+
+        /* Voting table. Horizontal scrolling keeps all eight names readable. */
+        .scoreboard {
+            padding: 24px;
+            margin: 28px auto;
+            background: #222834;
+            border: 1px solid #394356;
+            border-radius: 16px;
+        }
+        .scoreboard h2 { margin: 0; text-align: center; color: #ff6483; }
+        .scoreboard > p { margin: 6px 0 20px; text-align: center; }
+        .scoreboard-scroll { width: 100%; overflow-x: auto; }
+        .votes-table {
+            width: 100%;
+            min-width: 960px;
+            border-collapse: separate;
+            border-spacing: 0;
+            table-layout: fixed;
+            text-align: center;
+        }
+        .votes-table th {
+            padding: 14px 8px;
+            color: #ffffff;
+            background: #303a4d;
+            font-size: 14px;
+            overflow-wrap: anywhere;
+        }
+        .votes-table td {
+            padding: 14px 8px;
+            color: #ff6483;
+            background: #1b202b;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .votes-table th:not(:last-child),
+        .votes-table td:not(:last-child) { border-right: 1px solid #48546b; }
+
+        /* Singer cards. Grid is shared by both groups. */
+        #p1 { margin: 28px 0; text-align: justify; }
+        .singer-section { margin-top: 40px; }
+        .singer-section > h2 {
+            margin: 0 0 18px;
+            color: #e73358;
+            text-align: center;
+            font-size: clamp(1.6rem, 3vw, 2rem);
+        }
+        .singers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 18px;
+        }
+        .singers-grid article, .singers-grid #eden {
+            float: none;
+            width: auto;
+            min-width: 0;
+            grid-column: auto;
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid #394356;
+            background: #242a35;
+        }
+        .singers-grid article h3 { margin: 0 0 10px; color: #ffffff; }
+        .singers-grid article p { margin: 0 0 14px; overflow-wrap: anywhere; }
+        .singers-grid article img {
+            display: block;
+            width: min(100%, 200px);
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 12px;
+        }
+        .vote-button {
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+            padding: 11px;
+            border: 0;
+            border-radius: 8px;
+            background: #c9274c;
+            color: #ffffff;
+            font: inherit;
+            cursor: pointer;
+        }
+        .vote-button:hover, .vote-button:focus-visible { background: #ed3a65; }
+        footer { padding: 18px; background: #242a35; color: #f4f6fb; text-align: center; }
+
+        @media (max-width: 1200px) {
+            .singers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 900px) {
+            .singers-grid { grid-template-columns: 1fr; }
+            .singers-grid article img { display: none; }
+            .scoreboard { padding: 14px; }
+            main { width: calc(100% - 24px); }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <h1>Singers of the Year</h1>
+    </header>
 
-    <header><h1>Singers of the Year</h1></header>
+    <nav class="menu" aria-label="Main navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="flute.html">Flute</a></li>
+            <li><a href="drums.html">Drums</a></li>
+            <li><a href="singers.html" aria-current="page">Singers of the Year</a></li>
+        </ul>
+    </nav>
 
-    
-<nav class="menu">
-    <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="flute.html">Flute</a></li>
-        <li><a href="drums.html">Drums</a></li>
-        <li><a href="singers.html">Singers of the Year</a></li>
-    </ul>
-</nav>
+    <main>
+        <section class="scoreboard" aria-labelledby="scoreboard-title">
+            <h2 id="scoreboard-title">Voting Scoreboard</h2>
+            <p>Vote for your favorite singer!</p>
+            <div class="scoreboard-scroll">
+                <table class="votes-table" aria-label="Singer voting scoreboard">
+                    <thead>
+                        <tr>
+                            <th scope="col">Odeya</th>
+                            <th scope="col">Jasmin Moallem</th>
+                            <th scope="col">Noa Kirel</th>
+                            <th scope="col">Eden Ben Zaken</th>
+                            <th scope="col">Omer Adam</th>
+                            <th scope="col">Osher Cohen</th>
+                            <th scope="col">Static</th>
+                            <th scope="col">Eden Hason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="votes-odeya">0</td>
+                            <td id="votes-jasmin">0</td>
+                            <td id="votes-noa">0</td>
+                            <td id="votes-edenb">0</td>
+                            <td id="votes-omer">0</td>
+                            <td id="votes-osher">0</td>
+                            <td id="votes-static">0</td>
+                            <td id="votes-edenh">0</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
 
+        <p id="p1">
+            Singer of the Year, Female Singer of the Year, and Band or Group of the Year
+            are musical titles awarded to outstanding artists as part of the annual
+            Israeli Hebrew music charts, usually based on public voting.          In the
+            past, these titles often caused intense rivalries between fans.         For
+            example, in the early 1980s, there were rivalries between fans of         the
+            bands Tislam and Benzin, and later between fans of Ofra Haza and         Yardena
+            Arazi. Today, these titles are still considered prestigious         and are
+            often used as part of the winners' promotional campaigns.          The titles
+            were first awarded in the 1969 annual music chart to singers         Avi
+            Toledano and Rivka Zohar, as well as the Nahal Entertainment Troupe.
+            Beginning in 2013, the annual Galgalatz music chart discontinued the
+            categories of Singer of the Year, Female Singer of the Year, Group of
+            the Year, and Breakthrough Artist of the Year. Instead, Galgalatz
+            listeners selected the People of the Year in Music, and a Breakthrough
+            of the Year category was later added.          The broadcasts of Kol Israel and
+            Reshet Gimel, which had previously         awarded these titles, ended on May
+            14, 2017, following the establishment         of the Israeli Public Broadcasting
+            Corporation. The station that         replaced Reshet Gimel, Kan Gimel,
+            continued awarding these titles in         its annual music chart. Beginning in
+            2023, the corporation changed         the titles to Selected Artists of the Year
+            and, on one occasion,         presented the award to four selected artists.
+        </p>
 
-<section class="scoreboard">
-    <h2>Voting Scoreboard</h2>
-    <p>Vote for your favorite singer!</p>
+        <section class="singer-section">
+            <h2>Female Singers of the Year</h2>
+            <div class="singers-grid female-singers">
 
-    <div class="scoreboard-scroll">
-        <table class="votes-table">
-            <tr>
-                <th>Odeya</th>
-                <th>Jasmin Moallem</th>
-                <th>Noa Kirel</th>
-                <th>Eden Ben Zaken</th>
-                <th>Omer Adam</th>
-                <th>Osher Cohen</th>
-                <th>Static</th>
-                <th>Eden Hason</th>
-            </tr>
+                <article>
+                    <h3>Odeya</h3>
+                    <p>
+                        Odeya Azulay was born and raised in Bat Yam in a religious
+                        family and attended a religious school. Around the age of
+                        eleven, she became less religious and transferred to a secular
+                        school. A few years later, she began reconnecting with religion.
+                        In an interview with the Israeli youth website Frogi, she
+                        explained that although there are religious restrictions
+                        concerning women singing, she has a rabbi who supports and
+                        encourages her. She later added that since becoming more
+                        religious, she has been writing about deeper subjects,
+                        including Judaism, the soul, and God.                  In an interview
+                        with Maariv LaNoar, she said that she had                 tried to
+                        audition for the television program School of Music.
+                        In October 2019, she enlisted in the Israel Defense Forces.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Odeya.jpg/250px-Odeya.jpg" alt="Odeya" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-odeya" lang="he" dir="rtl" aria-label="הצבעה עבור Odeya">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
 
-            <tr>
-                <td id="vote-odeya">0</td>
-                <td id="vote-jasmin">0</td>
-                <td id="vote-noa">0</td>
-                <td id="vote-edenb">0</td>
-                <td id="vote-omer">0</td>
-                <td id="vote-osher">0</td>
-                <td id="vote-static">0</td>
-                <td id="vote-edenh">0</td>
-            </tr>
-        </table>
-    </div>
-</section>
+                <article>
+                    <h3>Jasmin Moallem</h3>
+                    <p>
+                        Jasmin Moallem was born in Jerusalem to a musician father.
+                        At the age of two, she moved with her family to Portugal,
+                        but two years later they returned to Israel and settled
+                        in Jaffa. During her teenage years, she attended the
+                        Thelma Yellin High School of the Arts, where she studied
+                        visual arts. She has a brother and a sister.                  In 2015,
+                        she began studying music in the United States.                 She
+                        also studied at a music academy in London and later
+                        attended the Rimon School of Music in Israel.                  In
+                        2018, she participated in the Shirimon music competition
+                        together with Uri Brinker. They performed Omer Adam&#x27;s song
+                        &quot;Noetzet Mabat&quot; and won first place.
+                        Moallem is married to Ron Ben Yair, and they have two daughters.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Jasmin_Moallem.jpg/500px-Jasmin_Moallem.jpg" alt="Jasmin Moallem" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-jasmin" lang="he" dir="rtl" aria-label="הצבעה עבור Jasmin Moallem">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
 
+                <article>
+                    <h3>Noa Kirel</h3>
+                    <p>
+                        Noa Kirel was born and raised in Ra&#x27;anana, Israel.
+                        Her father, Amir Kirel, owns a glass importing and
+                        marketing business, and her mother, Ilana, owns a
+                        fashion boutique. She has two older brothers.                  She was
+                        originally named Noya, but when she was two                 months
+                        old, she was diagnosed with a kidney condition.
+                        Following the advice of a rabbi, her parents changed
+                        her name to Noa.                  At the age of ten, she auditioned
+                        for the Israeli                 reality television program School of
+                        Music, broadcast                 on Channel 2, but was not accepted.
+                        At the age of thirteen, she appeared alongside                 actress
+                        Eliana Tidhar in an advertising campaign                 for the
+                        Israeli cosmetics company Careline.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/1_Noa_Kirel.jpg/250px-1_Noa_Kirel.jpg" alt="Noa Kirel" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-noa" lang="he" dir="rtl" aria-label="הצבעה עבור Noa Kirel">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
 
-<main>
-    <p id="p1">
-        Singer of the Year, Female Singer of the Year, and Band or Group of the Year
-        are musical titles awarded to outstanding artists as part of the annual
-        Israeli Hebrew music charts, usually based on public voting.
+                <article id="eden">
+                    <h3>Eden Ben Zaken</h3>
+                    <p>
+                        Eden Pessia Ben Zaken, born on June 8, 1994, is an
+                        Israeli singer-songwriter, composer, and actress.                  She
+                        became famous after participating in the first                 season
+                        of the Israeli television program The X Factor                 Israel,
+                        where she finished in second place.                  Ben Zaken also
+                        appeared as a guest judge during                 the show&#x27;s third
+                        season.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Eden_Ben_Zaken_3.jpg/500px-Eden_Ben_Zaken_3.jpg" alt="Eden Ben Zaken" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-edenb" lang="he" dir="rtl" aria-label="הצבעה עבור Eden Ben Zaken">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
 
-        In the past, these titles often caused intense rivalries between fans.
-        For example, in the early 1980s, there were rivalries between fans of
-        the bands Tislam and Benzin, and later between fans of Ofra Haza and
-        Yardena Arazi. Today, these titles are still considered prestigious
-        and are often used as part of the winners' promotional campaigns.
+            </div>
+        </section>
 
-        The titles were first awarded in the 1969 annual music chart to singers
-        Avi Toledano and Rivka Zohar, as well as the Nahal Entertainment Troupe.
-        Beginning in 2013, the annual Galgalatz music chart discontinued the
-        categories of Singer of the Year, Female Singer of the Year, Group of
-        the Year, and Breakthrough Artist of the Year. Instead, Galgalatz
-        listeners selected the People of the Year in Music, and a Breakthrough
-        of the Year category was later added.
+        <section class="singer-section">
+            <h2>Male Singers of the Year</h2>
+            <div class="singers-grid male-singers">
 
-        The broadcasts of Kol Israel and Reshet Gimel, which had previously
-        awarded these titles, ended on May 14, 2017, following the establishment
-        of the Israeli Public Broadcasting Corporation. The station that
-        replaced Reshet Gimel, Kan Gimel, continued awarding these titles in
-        its annual music chart. Beginning in 2023, the corporation changed
-        the titles to Selected Artists of the Year and, on one occasion,
-        presented the award to four selected artists.
-    </p>
-    <section>
-    <h1>Female Singers of the Year</h1>
+                <article>
+                    <h3>Omer Adam</h3>
+                    <p>
+                        Omer Adam was born in North Carolina, United States,
+                        to Yaniv and Sharon Adam. At the age of three, he
+                        returned to Israel with his family. He lived in                 Moshav
+                        Mishmar HaShiva until 2017.                  In 2005, he participated
+                        in the singing competition                 Shir Nolad, performing the
+                        song &quot;Yeled Pele&quot;                 alongside television
+                        presenter Tal Mosseri.                  His father&#x27;s family is of
+                        Caucasian Jewish origin,                 while his mother&#x27;s
+                        family is of Ashkenazi origin.                  His father, Major
+                        Yaniv Adam, served as deputy                 commander of the Shaldag
+                        Unit and as deputy                 battalion commander of the 202nd
+                        Paratroopers Battalion.                  His maternal grandmother is
+                        the artist Aviva Shemer,                 and his grandfather is Shmuel
+                        Adam, who served as                 a colonel and senior police
+                        officer. Shmuel Adam                 is a cousin of Major General
+                        Yekutiel Adam.                  Another relative, Yekutiel Rabaev, was
+                        killed while                 defending Petah Tikva in 1917.
+                        Omer&#x27;s brothers, Roee and Gal Adam, are also singers.
+                        Omer served in the Israel Defense Forces at Training
+                        Base 20 in the Ordnance Corps.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/%D7%A2%D7%95%D7%9E%D7%A8_%D7%90%D7%93%D7%9D_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%A9%D7%99_%D7%A4%D7%A8%D7%A0%D7%A7%D7%95.jpg/330px-%D7%A2%D7%95%D7%9E%D7%A8_%D7%90%D7%93%D7%9D_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%A9%D7%99_%D7%A4%D7%A8%D7%A0%D7%A7%D7%95.jpg" alt="Omer Adam" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-omer" lang="he" dir="rtl" aria-label="הצבעה עבור Omer Adam">
+                        הזמר האהוב עליי
+                    </button>
+                </article>
 
-    <div class="singers-grid">
+                <article>
+                    <h3>Osher Cohen</h3>
+                    <p>
+                        Osher Cohen was born and raised in Kiryat Bialik,
+                        Israel, to former singer Ilan Cohen. He grew up                 in a
+                        traditional, music-loving family.                  At the age of five,
+                        he began studying at the                 Kiryat Bialik Conservatory.
+                        During his musical                 education, he learned to play
+                        several instruments,                 including the piano, baglama,
+                        guitar, clarinet,                 and violin.                  At the
+                        age of eleven, he began performing as                 an accompanying
+                        keyboard player at live concerts.                  In 2017, Cohen
+                        enlisted in the Military Police                 Corps and served as a
+                        supply clerk at Military                 Prison 6. Following a nine-
+                        month period of                 absence without leave, he served a
+                        six-month                 sentence in military prison.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/%D7%90%D7%95%D7%A9%D7%A8_%D7%9B%D7%94%D7%9F.jpg/500px-%D7%90%D7%95%D7%A9%D7%A8_%D7%9B%D7%94%D7%9F.jpg" alt="Osher Cohen" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-osher" lang="he" dir="rtl" aria-label="הצבעה עבור Osher Cohen">
+                        הזמר האהוב עליי
+                    </button>
+                </article>
 
-        <article>
-            <h2>Odeya</h2>
-            <p>
-                Odeya Azulay was born and raised in Bat Yam in a religious
-                family and attended a religious school. Around the age of
-                eleven, she became less religious and transferred to a secular
-                school. A few years later, she began reconnecting with religion.
+                <article>
+                    <h3>Static</h3>
+                    <p>
+                        Liraz Russo, born on December 8, 1990, is an                 Israeli
+                        pop singer and rapper best known by his                 stage name
+                        Static, sometimes also called Statboy.                  He was a
+                        member of the musical duo Static and                 Ben El, together
+                        with singer Ben El Tavori.                 Working with music producer
+                        Jordi, the duo                 released several successful songs that
+                        became                 major hits in Israel.                  Their
+                        music videos received tens of millions                 of views on
+                        YouTube. Some of their most popular                 songs include
+                        &quot;Tudo Bom&quot;, &quot;Kvish HaHof&quot;,                 and
+                        &quot;Barbie&quot;.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/1_Static.jpg/250px-1_Static.jpg" alt="Static" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-static" lang="he" dir="rtl" aria-label="הצבעה עבור Static">
+                        הזמר האהוב עליי
+                    </button>
+                </article>
 
-                In an interview with the Israeli youth website Frogi, she
-                explained that although there are religious restrictions
-                concerning women singing, she has a rabbi who supports and
-                encourages her. She later added that since becoming more
-                religious, she has been writing about deeper subjects,
-                including Judaism, the soul, and God.
+                <article>
+                    <h3>Eden Hason</h3>
+                    <p>
+                        Eden Hason was born on August 25, 1994, in                 Pardes
+                        Hanna-Karkur, Israel. He is an Israeli                 singer-
+                        songwriter, lyricist, composer, and                 music producer.
+                        His musical styles include pop, Mizrahi music,                 and
+                        electronic music. He is a tenor and plays                 both guitar
+                        and piano.                  Hason began his professional musical
+                        career                 in 2015 and has become a well-known performer
+                        in the Israeli music industry.                  In 2018, he won an
+                        ACUM Award for Song of the                 Year for his debut single
+                        &quot;Shemishehu Ya&#x27;atzor Oti&quot;,                 which means
+                        &quot;Someone Stop Me&quot;.                  In 2022, he performed
+                        alongside the singer                 Mor at the Sultan&#x27;s Pool
+                        concert venue in Jerusalem.
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Eden_hason.jpg/250px-Eden_hason.jpg" alt="Eden Hason" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-edenh" lang="he" dir="rtl" aria-label="הצבעה עבור Eden Hason">
+                        הזמר האהוב עליי
+                    </button>
+                </article>
 
-                In an interview with Maariv LaNoar, she said that she had
-                tried to audition for the television program School of Music.
-                In October 2019, she enlisted in the Israel Defense Forces.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Odeya.jpg/250px-Odeya.jpg" alt="Odeya" width="200" height="200">
+            </div>
+        </section>
 
-            <button type = "button"
-                class = "vote-button"
-                id = "vote-odeya">
-                הזמרת האהובה עליי
-            </button>
-        </article>
+    </main>
 
-        <article>
-            <h2>Jasmin Moallem</h2>
-            <p>
-                Jasmin Moallem was born in Jerusalem to a musician father.
-                At the age of two, she moved with her family to Portugal,
-                but two years later they returned to Israel and settled
-                in Jaffa. During her teenage years, she attended the
-                Thelma Yellin High School of the Arts, where she studied
-                visual arts. She has a brother and a sister.
+    <footer>
+        <p>&copy; 2026 Singers of the Year</p>
+    </footer>
 
-                In 2015, she began studying music in the United States.
-                She also studied at a music academy in London and later
-                attended the Rimon School of Music in Israel.
-
-                In 2018, she participated in the Shirimon music competition
-                together with Uri Brinker. They performed Omer Adam's song
-                "Noetzet Mabat" and won first place.
-
-                Moallem is married to Ron Ben Yair, and they have two daughters.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Jasmin_Moallem.jpg/500px-Jasmin_Moallem.jpg" alt="Jasmin Moallem" width="200" height="200">
-
-            <button type = "button"
-                class = "vote-button"
-                id = "vote-jasmin">
-                הזמרת האהובה עליי
-            </button>
-        </article>
-
-        <article>
-            <h2>Noa Kirel</h2>
-            <p>
-                Noa Kirel was born and raised in Ra'anana, Israel.
-                Her father, Amir Kirel, owns a glass importing and
-                marketing business, and her mother, Ilana, owns a
-                fashion boutique. She has two older brothers.
-
-                She was originally named Noya, but when she was two
-                months old, she was diagnosed with a kidney condition.
-                Following the advice of a rabbi, her parents changed
-                her name to Noa.
-
-                At the age of ten, she auditioned for the Israeli
-                reality television program School of Music, broadcast
-                on Channel 2, but was not accepted.
-
-                At the age of thirteen, she appeared alongside
-                actress Eliana Tidhar in an advertising campaign
-                for the Israeli cosmetics company Careline.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/1_Noa_Kirel.jpg/250px-1_Noa_Kirel.jpg" alt="Noa Kirel" width="200" height="200">
-
-            <button type = "button"
-                class = "vote-button"
-                id = "vote-noa">
-                הזמרת האהובה עליי
-            </button>
-        </article>
-
-        <article id="eden">
-            <h2>Eden Ben Zaken</h2>
-            <p>
-                Eden Pessia Ben Zaken, born on June 8, 1994, is an
-                Israeli singer-songwriter, composer, and actress.
-
-                She became famous after participating in the first
-                season of the Israeli television program The X Factor
-                Israel, where she finished in second place.
-
-                Ben Zaken also appeared as a guest judge during
-                the show's third season.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Eden_Ben_Zaken_3.jpg/500px-Eden_Ben_Zaken_3.jpg" alt="Eden Ben Zaken" width="200" height="200">
-
-            <button type = "button"
-                class = "vote-button"
-                id = "vote-edenb">
-                הזמרת האהובה עליי
-            </button>
-        </article>
-
-    </div>
-    </section>
-    
-    <section>
-    <h1 class="male-title">Male Singers of the Year</h1>
-
-    <div>
-
-        <article class="singer-card">
-            <h2>Omer Adam</h2>
-            <p>
-                Omer Adam was born in North Carolina, United States,
-                to Yaniv and Sharon Adam. At the age of three, he
-                returned to Israel with his family. He lived in
-                Moshav Mishmar HaShiva until 2017.
-
-                In 2005, he participated in the singing competition
-                Shir Nolad, performing the song "Yeled Pele"
-                alongside television presenter Tal Mosseri.
-
-                His father's family is of Caucasian Jewish origin,
-                while his mother's family is of Ashkenazi origin.
-
-                His father, Major Yaniv Adam, served as deputy
-                commander of the Shaldag Unit and as deputy
-                battalion commander of the 202nd Paratroopers Battalion.
-
-                His maternal grandmother is the artist Aviva Shemer,
-                and his grandfather is Shmuel Adam, who served as
-                a colonel and senior police officer. Shmuel Adam
-                is a cousin of Major General Yekutiel Adam.
-
-                Another relative, Yekutiel Rabaev, was killed while
-                defending Petah Tikva in 1917.
-
-                Omer's brothers, Roee and Gal Adam, are also singers.
-                Omer served in the Israel Defense Forces at Training
-                Base 20 in the Ordnance Corps.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/%D7%A2%D7%95%D7%9E%D7%A8_%D7%90%D7%93%D7%9D_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%A9%D7%99_%D7%A4%D7%A8%D7%A0%D7%A7%D7%95.jpg/330px-%D7%A2%D7%95%D7%9E%D7%A8_%D7%90%D7%93%D7%9D_%D7%A6%D7%99%D7%9C%D7%95%D7%9D_%D7%A9%D7%99_%D7%A4%D7%A8%D7%A0%D7%A7%D7%95.jpg" alt="Omer Adam" width="200" height="200">
-
-            <button type = "button"
-                class = "vote-button"
-                id = "vote-omer">
-                הזמר האהוב עליי
-            </button>
-        </article>
-
-        <article class="singer-card">
-            <h2>Osher Cohen</h2>
-            <p>
-                Osher Cohen was born and raised in Kiryat Bialik,
-                Israel, to former singer Ilan Cohen. He grew up
-                in a traditional, music-loving family.
-
-                At the age of five, he began studying at the
-                Kiryat Bialik Conservatory. During his musical
-                education, he learned to play several instruments,
-                including the piano, baglama, guitar, clarinet,
-                and violin.
-
-                At the age of eleven, he began performing as
-                an accompanying keyboard player at live concerts.
-
-                In 2017, Cohen enlisted in the Military Police
-                Corps and served as a supply clerk at Military
-                Prison 6. Following a nine-month period of
-                absence without leave, he served a six-month
-                sentence in military prison.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/%D7%90%D7%95%D7%A9%D7%A8_%D7%9B%D7%94%D7%9F.jpg/500px-%D7%90%D7%95%D7%A9%D7%A8_%D7%9B%D7%94%D7%9F.jpg" alt="Osher Cohen" width="200" height="200">
-
-             <button type = "button"
-                class = "vote-button"
-                id = "vote-osher">
-                הזמר האהוב עליי
-            </button>
-        </article>
-
-        <article class="singer-card">
-            <h2>Static</h2>
-            <p>
-                Liraz Russo, born on December 8, 1990, is an
-                Israeli pop singer and rapper best known by his
-                stage name Static, sometimes also called Statboy.
-
-                He was a member of the musical duo Static and
-                Ben El, together with singer Ben El Tavori.
-                Working with music producer Jordi, the duo
-                released several successful songs that became
-                major hits in Israel.
-
-                Their music videos received tens of millions
-                of views on YouTube. Some of their most popular
-                songs include "Tudo Bom", "Kvish HaHof",
-                and "Barbie".
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/1_Static.jpg/250px-1_Static.jpg" alt="Static" width="200" height="200">
-     
-            <button type = "button"
-                class = "vote-button"
-                id = "vote-static">
-                הזמר האהוב עליי
-            </button>
-        </article>
-
-        <article class="singer-card">
-            <h2>Eden Hason</h2>
-            <p>
-                Eden Hason was born on August 25, 1994, in
-                Pardes Hanna-Karkur, Israel. He is an Israeli
-                singer-songwriter, lyricist, composer, and
-                music producer.
-
-                His musical styles include pop, Mizrahi music,
-                and electronic music. He is a tenor and plays
-                both guitar and piano.
-
-                Hason began his professional musical career
-                in 2015 and has become a well-known performer
-                in the Israeli music industry.
-
-                In 2018, he won an ACUM Award for Song of the
-                Year for his debut single "Shemishehu Ya'atzor Oti",
-                which means "Someone Stop Me".
-
-                In 2022, he performed alongside the singer
-                Mor at the Sultan's Pool concert venue in Jerusalem.
-            </p>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Eden_hason.jpg/250px-Eden_hason.jpg" alt="Eden Hason" width="200" height="200">
-         <button type = "button"
-                class = "vote-button"
-                id = "vote-edenh">
-                הזמר האהוב עליי
-            </button>
-        </article>
-
-    </div>
-    </section>
-</main>
-<footer>
-    <p>© 2026 Singers of the Year</p>
-</footer>
+    <script src="js/script.js"></script>
 </body>
 </html>
