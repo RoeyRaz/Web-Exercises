@@ -65,3 +65,78 @@ footer {
     display: block;
     margin-top: 10px;
 }
+
+/* Voting scoreboard */
+
+.scoreboard {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 24px;
+    background-color: #f8fafc;
+    border: 1px solid #dbe4ed;
+    border-radius: 16px;
+    box-sizing: border-box;
+}
+
+.scoreboard h2 {
+    text-align: center;
+    color: #142c45;
+    margin: 0 0 10px;
+}
+
+.scoreboard p {
+    text-align: center;
+    color: #64748b;
+    margin-bottom: 24px;
+}
+
+.scoreboard-scroll {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.votes-table {
+    width: 100%;
+    min-width: 850px;
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
+    text-align: center;
+}
+
+.votes-table th {
+    background-color: #142c45;
+    color: white;
+    padding: 16px 8px;
+    font-size: 14px;
+    overflow-wrap: break-word;
+}
+
+.votes-table td {
+    background-color: white;
+    color: #276b91;
+    padding: 22px 8px;
+    font-size: 28px;
+    font-weight: bold;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.votes-table td:not(:last-child),
+.votes-table th:not(:last-child) {
+    border-right: 1px solid #e2e8f0;
+}
+
+.votes-table tr:hover td {
+    background-color: #edf6fb;
+}
+
+@media (max-width: 900px) {
+    .scoreboard {
+        padding: 14px;
+        margin: 20px auto;
+    }
+
+    .votes-table {
+        min-width: 850px;
+    }
+}
