@@ -43,7 +43,7 @@
         nav.menu a:focus-visible,
         nav.menu a[aria-current="page"] { background: #c9274c; }
 
-        /* Voting table. Horizontal scrolling keeps all eight names readable. */
+        /* Voting table. Horizontal scrolling keeps all eleven names readable. */
         .scoreboard {
             padding: 24px;
             margin: 28px auto;
@@ -56,7 +56,7 @@
         .scoreboard-scroll { width: 100%; overflow-x: auto; }
         .votes-table {
             width: 100%;
-            min-width: 960px;
+            min-width: 1320px;
             border-collapse: separate;
             border-spacing: 0;
             table-layout: fixed;
@@ -126,6 +126,8 @@
             cursor: pointer;
         }
         .vote-button:hover, .vote-button:focus-visible { background: #ed3a65; }
+        .photo-credits { margin: 12px 0 0; color: #bac3d1; font-size: 12px; }
+        .photo-credits a { color: #d7e8ff; }
         footer { padding: 18px; background: #242a35; color: #f4f6fb; text-align: center; }
 
         @media (max-width: 1200px) {
@@ -170,6 +172,9 @@
                             <th scope="col">Osher Cohen</th>
                             <th scope="col">Static</th>
                             <th scope="col">Eden Hason</th>
+                            <th scope="col">Charli XCX</th>
+                            <th scope="col">Grimes</th>
+                            <th scope="col">FKA twigs</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -182,6 +187,9 @@
                             <td id="votes-osher">0</td>
                             <td id="votes-static">0</td>
                             <td id="votes-edenh">0</td>
+                            <td id="votes-charli">0</td>
+                            <td id="votes-grimes">0</td>
+                            <td id="votes-fka-twigs">0</td>
                         </tr>
                     </tbody>
                 </table>
@@ -302,7 +310,44 @@
                     </button>
                 </article>
 
+                <article>
+                    <h3>Charli XCX</h3>
+                    <p>Charli XCX is a British singer and songwriter known for her energetic electronic pop sound. Her music often combines pop songwriting with experimental production, and her albums include Pop 2, how i&#x27;m feeling now, Crash and Brat.</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Charli_XCX-4059.jpg/500px-Charli_XCX-4059.jpg" alt="Charli XCX at the 2025 Cannes Film Festival" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-charli" lang="he" dir="rtl" aria-label="הצבעה עבור Charli XCX">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
+
+                <article>
+                    <h3>Grimes</h3>
+                    <p>Grimes is a Canadian singer, songwriter and music producer whose work blends electronic music, synth-pop and experimental sounds. She is known for projects such as Visions and Art Angels and for producing much of her own music.</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Grimes_Way_out_west_2013_%28cropped%29.jpg/500px-Grimes_Way_out_west_2013_%28cropped%29.jpg" alt="Grimes performing at Way Out West in 2013" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-grimes" lang="he" dir="rtl" aria-label="הצבעה עבור Grimes">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
+
+                <article>
+                    <h3>FKA twigs</h3>
+                    <p>FKA twigs is an English singer, songwriter, dancer and performer. Her work combines alternative R&amp;B, electronic music and striking visual performance. Her releases include LP1, Magdalene and Caprisongs.</p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/FKA_twigs_%2816391770926%29.jpg/500px-FKA_twigs_%2816391770926%29.jpg" alt="FKA twigs performing at Laneway Festival in 2015" width="200" height="200" loading="lazy">
+                    <button type="button" class="vote-button" id="vote-fka-twigs" lang="he" dir="rtl" aria-label="הצבעה עבור FKA twigs">
+                        הזמרת האהובה עליי
+                    </button>
+                </article>
+
             </div>
+            <p class="photo-credits">
+                Photo credits for the new cards:
+                <a href="https://commons.wikimedia.org/wiki/File:Charli_XCX-4059.jpg">Charli XCX</a> by Harald Krichel / WikiPortraits
+                (<a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>),
+                <a href="https://commons.wikimedia.org/wiki/File:Grimes_Way_out_west_2013_(cropped).jpg">Grimes</a> by Kim Metso
+                (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>),
+                <a href="https://commons.wikimedia.org/wiki/File:FKA_twigs_(16391770926).jpg">FKA twigs</a> by Foraggio Photographic
+                (<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC BY-SA 2.0</a>).
+                Images are displayed as square crops.
+            </p>
         </section>
 
         <section class="singer-section">
